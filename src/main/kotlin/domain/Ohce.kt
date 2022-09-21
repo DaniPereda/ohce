@@ -10,9 +10,9 @@ data class Ohce(var word:String="", var name:String="", var status:Status = Stat
 
     fun chooseMoment(hourInt:Int): Day
     {
-        return if ((hourInt > 20) or (hourInt < 5))
+        return if ((hourInt >= 20) or (hourInt < 6))
             Day.NIGHT
-        else if (((hourInt > 6) and (hourInt < 12)))
+        else if (((hourInt >= 6) and (hourInt < 12)))
             Day.MORNING
         else
             Day.AFTERNOON

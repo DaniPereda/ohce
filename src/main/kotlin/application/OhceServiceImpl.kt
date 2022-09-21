@@ -10,25 +10,28 @@ internal class OhceServiceImpl(
     val keysWords: KeywordsPort
 ) : OhceService {
 
-    fun startOhceService() {
-        var userName = reader.retrieveName()
-        start(userName)
+    var userName:String = ""
 
-        while (newWordToAnalyze(reader.retrieveWord(), userName) != Status.EXIT) {
+    fun startOhceService() {
+        var userName = analyzeFirstWord()
+
+        while (analyzeNewWord() != Status.EXIT) {
         }
 
     }
 
-    override fun start(name: String) {
+    override fun analyzeFirstWord():String {
+        val userName = reader.retrieveName()
         val hourInt = clock.retrieveHour()
         var myOhce = Ohce()
-        myOhce.sayHello(hourInt, name)
+        myOhce.sayHello(hourInt, userName)
         printer.printHello(myOhce)
+        return userName
     }
 
-    override fun newWordToAnalyze(word: String, userName:String):Status {
+    override fun analyzeNewWord():Status {
         var ohce: Ohce
-        ohce = Ohce(word)
+        ohce = Ohce(word = reader.retrieveWord())
         ohce.analizeNewWord(keysWords.isStopKeyword(ohce.word))
 
         when (ohce.status) {
