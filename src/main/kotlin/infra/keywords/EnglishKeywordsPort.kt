@@ -1,4 +1,4 @@
-package infra
+package infra.keywords
 
 import application.KeywordsPort
 

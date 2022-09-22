@@ -1,8 +1,8 @@
-package infra
+package infra.dataReader
 
 import application.DataRetrieverPrimaryAdapter
 
-class SpanishConsoleDataRetrieverPrimaryAdapter:DataRetrieverPrimaryAdapter {
+class ConsoleDataRetrieverPrimaryAdapter:DataRetrieverPrimaryAdapter {
     override fun retrieveName(): String {
         return readln()
     }

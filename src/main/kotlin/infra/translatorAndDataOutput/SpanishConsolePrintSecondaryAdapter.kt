@@ -1,4 +1,4 @@
-package infra
+package infra.translatorAndDataOutput
 
 import application.LanguagePrinterSecondaryAdapter
 import domain.Day
@@ -8,7 +8,7 @@ class SpanishConsolePrintSecondaryAdapter:LanguagePrinterSecondaryAdapter {
     override fun printHello(ohce:Ohce) {
 
         translateMorningAfternoonNight(ohce.dayMoment)
-        println("${translateMorningAfternoonNight(ohce.dayMoment)} + ${ohce.name}")
+        println("${translateMorningAfternoonNight(ohce.dayMoment)} ${ohce.name}")
     }
 
     private fun translateMorningAfternoonNight(mornigAfternoonNight: Day) =

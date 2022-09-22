@@ -13,7 +13,7 @@ internal class OhceServiceImpl(
     var userName:String = ""
 
     fun startOhceService() {
-        var userName = analyzeFirstWord()
+        userName = analyzeFirstWord()
 
         while (analyzeNewWord() != Status.EXIT) {
         }
