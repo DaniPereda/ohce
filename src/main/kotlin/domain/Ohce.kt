@@ -1,35 +1,67 @@
 package domain
 
-data class Ohce(var word:String="", var name:String="", var status:Status = Status.NORMAL_WORD, var dayMoment:Day = Day.MORNING) {
+data class Ohce(var inputStr: String, var name: String, val ohceKeywords: Keywords) {
+    var status = Status.NO_WORD
 
-    fun sayHello(hour:Int, myName:String){
-        name = myName
-        dayMoment = chooseMoment(hour)
-        status = Status.HELLO
-    }
+    fun analyzeNewWord() {
 
-    fun chooseMoment(hourInt:Int): Day
-    {
-        return if ((hourInt >= 20) or (hourInt < 6))
-            Day.NIGHT
-        else if (((hourInt >= 6) and (hourInt < 12)))
-            Day.MORNING
-        else
-            Day.AFTERNOON
-    }
+        //Waiting first word
 
-    fun analizeNewWord(isStopKeyword:Boolean){
-        if(isStopKeyword)
-            status = Status.EXIT
-        else if(isPalindrome())
-            status = Status.PALINDROME
-        else {
-            word = word.reversed()
-            status = Status.NORMAL_WORD
+        if (isStartingWord()) {
+            name = startOhce(inputStr)
+            status = Status.HELLO
+        } else if (started()) {
+            if (isExitWord()) {
+                exitActions()
+            } else if (isPalindromeWord()) {
+                palindromeActions()
+            } else {
+                normalWordActions()
+            }
         }
+
     }
 
-    private fun isPalindrome() = word == word.reversed()
+    private fun started() = name != ""
+
+    private fun exitActions() {
+        status = Status.EXIT
+    }
+
+    private fun palindromeActions() {
+        status = Status.PALINDROME
+    }
+
+    private fun normalWordActions() {
+        inputStr = inputStr.reversed()
+        status = Status.NORMAL_WORD
+    }
+
+    private fun isStartingWord() = ohceKeywords.isStart(inputStr) and (name =="")
+
+    private fun isExitWord() = ohceKeywords.isExit(inputStr) and (name != "")
+
+    private fun isPalindromeWord() = inputStr == inputStr.reversed()
+
+    private fun startOhce(stringToClean: String): String {
+        var splitList = stringToClean.split(" ").toMutableList()
+        var splitSize = splitList.size
+        var result = ""
+
+        if (splitSize == 1)
+            throw NoSuchFieldException("Name not provided")
+
+        return isolateName()
+
+    }
+
+    private fun isolateName(): String {
+        var splittedList = inputStr.split(" ").toMutableList()
+
+        splittedList.removeAt(0)
+
+        return splittedList.joinToString(separator = " ")
+    }
 
 
 }

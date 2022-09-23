@@ -4,11 +4,10 @@ import application.LanguagePrinterSecondaryAdapter
 import domain.Day
 import domain.Ohce
 
-class SpanishConsolePrintSecondaryAdapter:LanguagePrinterSecondaryAdapter {
-    override fun printHello(ohce:Ohce) {
+class SpanishConsolePrintSecondaryAdapter : LanguagePrinterSecondaryAdapter {
+    override fun printHello(ohce: Ohce, momentOfTheDay:Day) {
 
-        translateMorningAfternoonNight(ohce.dayMoment)
-        println("${translateMorningAfternoonNight(ohce.dayMoment)} ${ohce.name}")
+       println("${translateMorningAfternoonNight(momentOfTheDay)} ${ohce.name}")
     }
 
     private fun translateMorningAfternoonNight(mornigAfternoonNight: Day) =
@@ -17,7 +16,6 @@ class SpanishConsolePrintSecondaryAdapter:LanguagePrinterSecondaryAdapter {
             Day.AFTERNOON -> "Buenas tardes"
             Day.NIGHT -> "Buenas noches"
         }
-
 
 
     override fun printPalindrome(word: String) {

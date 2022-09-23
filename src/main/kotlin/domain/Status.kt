@@ -4,5 +4,6 @@ enum class Status {
     EXIT,
     NORMAL_WORD,
     PALINDROME,
-    HELLO
+    HELLO,
+    NO_WORD
 }

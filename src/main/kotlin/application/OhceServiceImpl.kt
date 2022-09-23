@@ -1,46 +1,45 @@
 package application
 
+import domain.Day
+import domain.Keywords
 import domain.Ohce
 import domain.Status
 
 internal class OhceServiceImpl(
-    val reader: DataRetrieverPrimaryAdapter,
-    val printer: LanguagePrinterSecondaryAdapter,
-    val clock: Clock,
-    val keysWords: KeywordsPort
+    private val reader: DataRetrieverPrimaryAdapter,
+    private val printer: LanguagePrinterSecondaryAdapter,
+    private val clock: Clock,
+    private val keysWordsPort: KeywordsPort
 ) : OhceService {
 
+    private val keyWords = Keywords(keysWordsPort.setKeywords())
     var userName:String = ""
 
-    fun startOhceService() {
-        userName = analyzeFirstWord()
 
-        while (analyzeNewWord() != Status.EXIT) {
+    fun start(){
+        while(analyzeNewWord() != Status.EXIT){
+
         }
-
-    }
-
-    override fun analyzeFirstWord():String {
-        val userName = reader.retrieveName()
-        val hourInt = clock.retrieveHour()
-        var myOhce = Ohce()
-        myOhce.sayHello(hourInt, userName)
-        printer.printHello(myOhce)
-        return userName
     }
 
     override fun analyzeNewWord():Status {
-        var ohce: Ohce
-        ohce = Ohce(word = reader.retrieveWord())
-        ohce.analizeNewWord(keysWords.isStopKeyword(ohce.word))
+        val ohce = Ohce(inputStr = reader.retrieveInputStr(), userName, keyWords)
+
+        ohce.analyzeNewWord()
 
         when (ohce.status) {
-            Status.NORMAL_WORD -> printer.printNormalWord(ohce.word)
-            Status.PALINDROME -> printer.printPalindrome(ohce.word)
+            Status.HELLO -> {
+                userName = ohce.name
+                printer.printHello(ohce, Day.chooseMoment(clock.retrieveHour()))
+            }
+            Status.NORMAL_WORD -> printer.printNormalWord(ohce.inputStr)
+            Status.PALINDROME -> printer.printPalindrome(ohce.inputStr)
             Status.EXIT -> {
                 printer.printBye(userName)
+                userName = ""
             }
-            Status.HELLO -> {}
+            else -> { }
+
         }
 
         return ohce.status

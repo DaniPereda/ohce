@@ -1,6 +1,8 @@
 package application
 
+import domain.Keywords.Keys
+
 interface KeywordsPort {
-    fun isStopKeyword(word:String):Boolean
+    fun setKeywords():Map<Keys, String>
 
 }

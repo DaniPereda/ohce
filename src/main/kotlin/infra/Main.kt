@@ -14,5 +14,5 @@ fun main(args: Array<String>) {
     OhceServiceImpl(
         ConsoleDataRetrieverPrimaryAdapter(), SpanishConsolePrintSecondaryAdapter(),
         ClockImpl(), EnglishKeywordsPort()
-    ).startOhceService()
+    ).start()
 }
