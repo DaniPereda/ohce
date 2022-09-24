@@ -30,7 +30,7 @@ class OhceServiceImplTest {
         sut.analyzeNewWord()
 
         //THEN
-        verify(mockWriter).adaptHello(result, Day.NIGHT)
+        verify(mockWriter).adaptHello(result.name, Day.NIGHT)
     }
 
     @Test
