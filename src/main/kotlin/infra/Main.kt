@@ -1,8 +1,8 @@
 import application.OhceServiceImpl
 import infra.ohceClock.ClockImpl
-import infra.dataReader.ConsoleDataRetrieverPrimaryAdapter
-import infra.keywords.EnglishKeywordsPort
-import infra.translatorAndDataOutput.SpanishConsolePrintSecondaryAdapter
+import infra.dataReader.ConsoleDataRetriever
+import infra.keywords.EnglishKeywordsRepository
+import infra.translatorAndDataOutput.SpanishAdapter
 
 fun main(args: Array<String>) {
     println("Hello World!")
@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
     println("Program arguments: ${args.joinToString()}")
 
     OhceServiceImpl(
-        ConsoleDataRetrieverPrimaryAdapter(), SpanishConsolePrintSecondaryAdapter(),
-        ClockImpl(), EnglishKeywordsPort()
+        ConsoleDataRetriever(), SpanishAdapter(),
+        ClockImpl(), EnglishKeywordsRepository()
     ).start()
 }

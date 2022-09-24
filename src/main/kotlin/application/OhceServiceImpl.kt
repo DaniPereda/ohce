@@ -6,10 +6,10 @@ import domain.Ohce
 import domain.Status
 
 internal class OhceServiceImpl(
-    private val reader: DataRetrieverPrimaryAdapter,
-    private val printer: LanguagePrinterSecondaryAdapter,
+    private val reader: DataRetriever,
+    private val printer: AdaptOutput,
     private val clock: Clock,
-    private val keysWordsPort: KeywordsPort
+    private val keysWordsPort: KeywordsRepository
 ) : OhceService {
 
     private val keyWords = Keywords(keysWordsPort.setKeywords())
@@ -30,12 +30,12 @@ internal class OhceServiceImpl(
         when (ohce.status) {
             Status.HELLO -> {
                 userName = ohce.name
-                printer.printHello(ohce, Day.chooseMoment(clock.retrieveHour()))
+                printer.adaptHello(userName, Day.chooseMoment(clock.retrieveHour()))
             }
-            Status.NORMAL_WORD -> printer.printNormalWord(ohce.inputStr)
-            Status.PALINDROME -> printer.printPalindrome(ohce.inputStr)
+            Status.NORMAL_WORD -> printer.adaptNormalWord(ohce.inputStr)
+            Status.PALINDROME -> printer.adaptPalindrome(ohce.inputStr)
             Status.EXIT -> {
-                printer.printBye(userName)
+                printer.adaptBye(userName)
                 userName = ""
             }
             else -> { }

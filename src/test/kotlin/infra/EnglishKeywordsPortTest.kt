@@ -1,7 +1,7 @@
 package infra
 
 import domain.Keywords
-import infra.keywords.EnglishKeywordsPort
+import infra.keywords.EnglishKeywordsRepository
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -9,7 +9,7 @@ class EnglishKeywordsPortTest {
     @Test
     fun `setKeywords ok`(){
         //GIVEN
-        val sut = EnglishKeywordsPort()
+        val sut = EnglishKeywordsRepository()
 
         //WHEN
         val result = sut.setKeywords()

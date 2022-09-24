@@ -2,7 +2,7 @@ package application
 
 import domain.Keywords.Keys
 
-interface KeywordsPort {
+interface KeywordsRepository {
     fun setKeywords():Map<Keys, String>
 
 }

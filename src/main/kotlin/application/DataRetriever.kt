@@ -1,6 +1,6 @@
 package application
 
 
-interface DataRetrieverPrimaryAdapter {
+interface DataRetriever {
     fun retrieveInputStr():String
 }

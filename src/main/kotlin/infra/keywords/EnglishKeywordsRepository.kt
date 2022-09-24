@@ -1,9 +1,9 @@
 package infra.keywords
 
-import application.KeywordsPort
+import application.KeywordsRepository
 import domain.Keywords.Keys
 
-class EnglishKeywordsPort:KeywordsPort {
+class EnglishKeywordsRepository:KeywordsRepository {
 
     override fun setKeywords(): Map<Keys, String> {
         return (mapOf(setStartKeyword(), setStopKeyword()))

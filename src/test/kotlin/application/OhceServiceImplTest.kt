@@ -3,7 +3,6 @@ package application
 import domain.Day
 import domain.Keywords
 import domain.Ohce
-import domain.Status
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -13,9 +12,9 @@ import kotlin.test.assertEquals
 class OhceServiceImplTest {
 
     private val mockClock = mock<Clock>()
-    private val mockReader = mock<DataRetrieverPrimaryAdapter>()
-    private val mockKeywords = mock<KeywordsPort>()
-    private val mockWriter = mock<LanguagePrinterSecondaryAdapter>()
+    private val mockReader = mock<DataRetriever>()
+    private val mockKeywords = mock<KeywordsRepository>()
+    private val mockWriter = mock<AdaptOutput>()
 
     @Test
     fun `hello 20h Night`() {
@@ -31,7 +30,7 @@ class OhceServiceImplTest {
         sut.analyzeNewWord()
 
         //THEN
-        verify(mockWriter).printHello(result, Day.NIGHT)
+        verify(mockWriter).adaptHello(result, Day.NIGHT)
     }
 
     @Test
@@ -48,7 +47,7 @@ class OhceServiceImplTest {
         sut.analyzeNewWord()
 
         //THEN
-        verify(mockWriter).printNormalWord("ylloDolleh")
+        verify(mockWriter).adaptNormalWord("ylloDolleh")
     }
 
     @Test
@@ -63,7 +62,7 @@ class OhceServiceImplTest {
         sut.analyzeNewWord()
 
         //THEN
-        verify(mockWriter).printPalindrome("uttopottu")
+        verify(mockWriter).adaptPalindrome("uttopottu")
     }
 
     @Test
@@ -78,7 +77,7 @@ class OhceServiceImplTest {
         sut.analyzeNewWord()
 
         //THEN
-        verify(mockWriter).printBye("TesterName")
+        verify(mockWriter).adaptBye("TesterName")
         assertEquals("", sut.userName)
     }
 
@@ -94,7 +93,7 @@ class OhceServiceImplTest {
         sut.analyzeNewWord()
 
         //THEN
-        verify(mockWriter).printNormalWord("epep echO")
+        verify(mockWriter).adaptNormalWord("epep echO")
     }
 
 }
